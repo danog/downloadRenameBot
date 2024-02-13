@@ -1,0 +1,16 @@
+{
+    "name": "danog/download-rename-bot",
+    "description": "2gb+ Telegram file/YouTube upload&amp;renamer bot based on MadelineProto",
+    "type": "project",
+    "require": {
+        "danog/madelineproto": "^8"
+    },
+    "minimum-stability": "beta",
+    "license": "AGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Daniil Gentili",
+            "email": "daniil@daniil.it"
+        }
+    ]
+}
