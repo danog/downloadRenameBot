@@ -74,7 +74,7 @@ $process = Process::start([
 $out = buffer($process->getStdout());
 $err = buffer($process->getStderr());
 if ($process->join()) {
-    echo("ffmpeg is not installed, please install ffmpeg!");
+    echo("ffmpeg is not installed, please install ffmpeg!".PHP_EOL);
     die(1);
 }
 
