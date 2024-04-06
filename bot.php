@@ -57,6 +57,27 @@ if (class_exists(API::class)) {
     require_once 'madeline.php';
 }
 
+$process = Process::start([
+    'yt-dlp',
+    '--version'
+]);
+$out = buffer($process->getStdout());
+$err = buffer($process->getStderr());
+if ($process->join()) {
+    echo("yt-dlp is not installed, please install yt-dlp!".PHP_EOL);
+    die(1);
+}
+$process = Process::start([
+    'ffmpeg',
+    '-h'
+]);
+$out = buffer($process->getStdout());
+$err = buffer($process->getStderr());
+if ($process->join()) {
+    echo("ffmpeg is not installed, please install ffmpeg!");
+    die(1);
+}
+
 /**
  * Event handler class.
  *
