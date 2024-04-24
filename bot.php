@@ -57,6 +57,11 @@ if (class_exists(API::class)) {
     require_once 'madeline.php';
 }
 
+if (PHP_SAPI !== 'cli') {
+    echo("Please run this bot via CLI in a screen session or docker image: https://docs.madelineproto.xyz/docs/DOCKER.html!".PHP_EOL);
+    die(1);
+}
+
 $process = Process::start([
     'yt-dlp',
     '--version'
@@ -204,10 +209,14 @@ class MyEventHandler extends SimpleEventHandler
     {
         try {
             $sent = $message->reply('Preparing...');
-            $file = new FileCallback(
-                $file,
-                static function ($progress, $speed, $time) use ($sent): void {
-                    static $prev = 0;
+            $prev = 0;
+            $this->sendVideo(
+                peer        : $message->chatId,
+                replyToMsgId: $message->id,
+                fileName: $name,
+                file: $file,
+                caption: 'Powered by @MadelineProto!',
+                callback: static function ($progress, $speed, $time) use ($sent, &$prev): void {
                     $now = time();
                     if ($now - $prev < 10 && $progress < 100) {
                         return;
@@ -219,18 +228,6 @@ class MyEventHandler extends SimpleEventHandler
                     } catch (RPCErrorException $e) {
                     }
                 },
-            );
-            $this->messages->sendMedia(
-                peer           : $message->chatId,
-                reply_to_msg_id: $message->id,
-                media          : [
-                    '_'          => 'inputMediaUploadedDocument',
-                    'file'       => $file,
-                    'attributes' => [
-                        ['_' => 'documentAttributeFilename', 'file_name' => $name],
-                    ],
-                ],
-                message   : 'Powered by @MadelineProto!'
             );
             $sent->delete();
         } catch (Throwable $e) {

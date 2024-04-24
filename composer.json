@@ -12,5 +12,10 @@
             "name": "Daniil Gentili",
             "email": "daniil@daniil.it"
         }
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "symfony/thanks": true
+        }
+    }
 }
