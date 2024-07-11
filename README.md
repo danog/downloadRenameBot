@@ -2,6 +2,7 @@
 
 2gb+ Telegram file/YouTube upload&amp;renamer bot based on [MadelineProto &raquo;](https://docs.madelineproto.xyz).  
 
+Download+reuploads are done on the fly, **no disk space is used**.
 
 ## Installation
 
